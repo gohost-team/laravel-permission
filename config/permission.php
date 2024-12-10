@@ -86,7 +86,8 @@ return [
          * that case, name this `model_uuid`.
          */
 
-        'model_morph_key' => 'model_id',
+        'model_morph_key' => 'model_gh_id',
+        'model_parent_key' => 'gh_id',
 
         /*
          * Change this if you want to use the teams feature and your related model's

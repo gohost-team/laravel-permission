@@ -52,7 +52,8 @@ trait HasRoles
             'model',
             config('permission.table_names.model_has_roles'),
             config('permission.column_names.model_morph_key'),
-            app(PermissionRegistrar::class)->pivotRole
+            app(PermissionRegistrar::class)->pivotRole,
+            config('permission.column_names.model_parent_key'),
         );
 
         if (! app(PermissionRegistrar::class)->teams) {

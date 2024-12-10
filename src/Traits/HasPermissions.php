@@ -322,8 +322,11 @@ trait HasPermissions
     public function hasDirectPermission($permission): bool
     {
         $permission = $this->filterPermission($permission);
+        if ($permission) {
+            return $this->permissions->contains($permission->getKeyName(), $permission->getKey());
+        }        
 
-        return $this->permissions->contains($permission->getKeyName(), $permission->getKey());
+        return false;
     }
 
     /**
@@ -349,7 +352,11 @@ trait HasPermissions
         $permissions = $this->permissions;
 
         if (method_exists($this, 'roles')) {
-            $permissions = $permissions->merge($this->getPermissionsViaRoles());
+            if ($permissions) {
+                $permissions = $permissions->merge($this->getPermissionsViaRoles());
+            } else {
+                $permissions = $this->getPermissionsViaRoles();
+            }
         }
 
         return $permissions->sort()->values();
